@@ -311,6 +311,11 @@ func (m *Handle) unlock() {
 	m.fatalErr = fmt.Errorf("connection closed, this handle is no longer usable - failed to unlock database after last session: %s", err)
 }
 
+func (m *Handle) ChangeMigrationFile(path string) {
+	if (path != "") {
+		m.migrationsPath = path
+	}
+}
 func (m *Handle) locking(ctx context.Context, f func() error) error {
 	unlock, err := m.lock(ctx)
 	if err != nil {
